@@ -15,7 +15,9 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: go test ./${{ github.workspace }}/submitImage/opendevopslambda/...
+          ls ${{ github.workspace }}/submitImage
+      - run: cd ${{ github.workspace }}/submitImage
+      - run: go test ./opendevopslambda/...
   deploy-us-west-1:
     runs-on: ubuntu-latest
     steps:
