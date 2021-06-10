@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  submitImage
+  
+  Sample SAM Template for submitImage
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 5
+
+Resources:
+  SubmitImageFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: submitImage/
+      Handler: submit-image
+      Runtime: go1.x
+      Tracing: Active # https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - AmazonS3FullAccess
+        - AdministratorAccess
+      Events:
+        CatchAll:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /submit-image
+            Method: GET
+      Tags:
+        Name: submitImage
+        business_unit: agile_devops_pmm
+        service_name: open_devops_image_rec
+        resource_owner: wmarusiak
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  SubmitImageAPI:
+    Description: "API Gateway endpoint URL for Prod environment for Submit Image Function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/submit-image/"
+  SubmitImageFunction:
+    Description: "First Lambda Function ARN"
+    Value: !GetAtt SubmitImageFunction.Arn
+  SubmitImageFunctionIamRole:
+    Description: "Implicit IAM Role created for Submit Image function"
+    Value: !GetAtt SubmitImageFunctionRole.Arn
+  SubmitImageFunctionName:
+    Description: "SubmitImage function name"
+    Value: !Ref SubmitImageFunction
+    Export:
+      Name: SubmitImageFunctionName
