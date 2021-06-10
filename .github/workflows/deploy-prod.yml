@@ -1,30 +1,30 @@
 name: deploy-submit-image-prod
 on:
-  pull-request:
+  pull_request:
     branches:
       - mainline
 jobs:
   deploy-us-west-2:
     runs-on: ubuntu-latest
     steps:
-      - echo "deploy-us-west-2"
+      - run: echo "deploy-us-west-2"
   integration-test-us-west-2:
     runs-on: ubuntu-latest
     steps:
-      - echo "integration-test-us-west-2"
+      - run: echo "integration-test-us-west-2"
   deploy-ca-central-1:
     runs-on: ubuntu-latest
     steps:
-      - echo "deploy-ca-central-1"
+      - run: echo "deploy-ca-central-1"
   integration-test-ca-central-1:
     runs-on: ubuntu-latest
     steps:
-      - echo "integraton-test-ca-central-1"
+      - run: echo "integraton-test-ca-central-1"
   deploy-us-east-1:
     runs-on: ubuntu-latest
     steps:
-      - echo "deploy-us-east-1"
+      - run: echo "deploy-us-east-1"
   integration-test-us-east-1:
     runs-on: ubuntu-latest
     steps:
-      - echo "integraton-test-us-east-1"
+      - run: echo "integraton-test-us-east-1"
