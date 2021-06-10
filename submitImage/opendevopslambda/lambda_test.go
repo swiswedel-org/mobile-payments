@@ -57,6 +57,8 @@ func TestHandler(t *testing.T) {
 			QueryStringParameters: qsp,
 		}
 
+    t.Fatal("asdfasdfasdfasdf")
+
 		_, err := d.Handler(ctx, request)
 		if err != nil {
 			t.Fatal(fmt.Sprintf("TestHandler failed with %s", err.Error()))
