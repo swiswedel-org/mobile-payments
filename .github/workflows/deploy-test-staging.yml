@@ -9,6 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "run-unit-tests"
+      - uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: go test ./${{ github.workspace }}/opendevopslambda/...
   deploy-us-west-1:
     runs-on: ubuntu-latest
     steps:
