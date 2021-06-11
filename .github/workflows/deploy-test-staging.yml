@@ -41,6 +41,7 @@ jobs:
           aws-region: "us-west-1"
       - name: SAM Validate
         run: |
+          sam --version
           sam validate
       - name: Configure variables
         shell: bash
