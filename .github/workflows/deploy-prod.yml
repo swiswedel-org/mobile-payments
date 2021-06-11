@@ -11,7 +11,22 @@ jobs:
   integration-test-us-west-2:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "integration-test-us-west-2"
+      - run: echo "integraton-test-us-west-2"
+      - name: Check out my other private repo
+        uses: actions/checkout@master
+        with:
+          repository: PmmQuickStartGuides01/systemTests
+          token: ${{ secrets.ACCESS_KEY }}
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16.x
+      - name: Integration Test us-west-2
+        run: |
+          cd ${{ github.workspace }}/systemTests
+          ls
+          cd systemtests
+          go test -v ./... -aws_region=us-west-2
   deploy-ca-central-1:
     runs-on: ubuntu-latest
     steps:
@@ -20,11 +35,41 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "integraton-test-ca-central-1"
+      - name: Check out my other private repo
+        uses: actions/checkout@master
+        with:
+          repository: PmmQuickStartGuides01/systemTests
+          token: ${{ secrets.ACCESS_KEY }}
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16.x
+      - name: Integration Test ca-central-1
+        run: |
+          cd ${{ github.workspace }}/systemTests
+          ls
+          cd systemtests
+          go test -v ./... -aws_region=ca-central-1
   deploy-us-east-1:
     runs-on: ubuntu-latest
     steps:
       - run: echo "deploy-us-east-1"
-  integration-test-us-east-1:
+  integration-test-us-east-r12:
     runs-on: ubuntu-latest
     steps:
       - run: echo "integraton-test-us-east-1"
+      - name: Check out my other private repo
+        uses: actions/checkout@master
+        with:
+          repository: PmmQuickStartGuides01/systemTests
+          token: ${{ secrets.ACCESS_KEY }}
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16.x
+      - name: Integration Test us-east-1
+        run: |
+          cd ${{ github.workspace }}/systemTests
+          ls
+          cd systemtests
+          go test -v ./... -aws_region=us-east-1
