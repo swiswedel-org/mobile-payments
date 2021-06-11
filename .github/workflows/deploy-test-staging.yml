@@ -73,6 +73,7 @@ jobs:
             --stack-name "OpenDevOpsSubmitImage" \
             --s3-bucket "open-devops-code-us-west-1" \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
+            --no-fail-on-empty-changeset
   integration-test-us-west-1:
     runs-on: ubuntu-latest
     needs: deploy-us-west-1
