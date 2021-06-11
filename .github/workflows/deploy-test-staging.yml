@@ -69,6 +69,7 @@ jobs:
         run: |
           sam build
       - name: SAM Deploy
+        continue-on-error: true
         run: |
           sam deploy --template-file .aws-sam/build/template.yaml \
             --stack-name "OpenDevOpsSubmitImage" \
