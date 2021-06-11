@@ -86,6 +86,9 @@ jobs:
         with:
           repository: PmmQuickStartGuides01/systemTests
           token: ${{ secrets.ACCESS_KEY }}
+      - run: |
+          pwd
+          ls -lah
       - name: Install Go
         uses: actions/setup-go@v2
         with:
