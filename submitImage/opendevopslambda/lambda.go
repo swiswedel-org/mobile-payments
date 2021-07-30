@@ -19,7 +19,6 @@ import (
 	"strings"
 )
 
-
 type Dependency struct {
 	DepS3 s3iface.S3API
 	DepDynamoDB dynamodbiface.DynamoDBAPI
@@ -27,7 +26,7 @@ type Dependency struct {
 
 var bucketRootName = "open-devops-images"
 
-func (d *Dependency) processRequest(imageUrl string, region string) (string, error) {
+func (d *Dependency) processRequest(imageUrl string, region string, aws_account_id string) (string, error) {
 	response, err := http.Get(imageUrl)
 	if err != nil {
 		return "", err
@@ -43,7 +42,7 @@ func (d *Dependency) processRequest(imageUrl string, region string) (string, err
 		return "", err
 	}
 
-	bucketName := fmt.Sprintf("%s-%s", bucketRootName, region)
+	bucketName := fmt.Sprintf("%s-%s-%s", bucketRootName, region, aws_account_id)
 
 	imageUuid, uuidErr := uuid.NewRandom()
 	if uuidErr != nil {
@@ -100,6 +99,7 @@ func isValidExtension(urlVal string) bool {
 func (d *Dependency) Handler(ctx context.Context, request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	lc, _ := lambdacontext.FromContext(ctx)
 	region := strings.Split(lc.InvokedFunctionArn, ":")[3]
+  aws_account_id := strings.Split(lc.InvokedFunctionArn, ":")[4]
 
 	urlParam, found := request.QueryStringParameters["url"]
 	if found {
@@ -118,7 +118,7 @@ func (d *Dependency) Handler(ctx context.Context, request events.APIGatewayProxy
 			}, errors.New("file extension %s is not valid")
 		}
 
-		processString, processErr := d.processRequest(urlVal, region)
+		processString, processErr := d.processRequest(urlVal, region, aws_account_id)
 		return events.APIGatewayProxyResponse{StatusCode: 200,
 			Body: fmt.Sprintf(`"ImageId":"%s"`, processString),
 			IsBase64Encoded: false,

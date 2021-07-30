@@ -71,9 +71,9 @@ jobs:
       - name: SAM Deploy
         continue-on-error: true
         run: |
-          sam deploy --template-file .aws-sam/build/template.yaml \
+          sam deploy --template-file .aws-sam/build/template.yml \
             --stack-name "OpenDevOpsSubmitImage" \
-            --s3-bucket "open-devops-code-us-west-1" \
+            --s3-bucket "open-devops-code-us-west-1-${{secret.AWS_ACOUNT_ID}}" \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
 
   integration-test-us-west-1:
@@ -149,9 +149,9 @@ jobs:
       - name: SAM Deploy
         continue-on-error: true
         run: |
-          sam deploy --template-file .aws-sam/build/template.yaml \
+          sam deploy --template-file .aws-sam/build/template.yml \
             --stack-name "OpenDevOpsSubmitImage" \
-            --s3-bucket "open-devops-code-us-east-2" \
+            --s3-bucket "open-devops-code-us-east-2-${{secrets.AWS_ACCOUNT_ID}}" \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
 
   integration-test-us-east-2:
