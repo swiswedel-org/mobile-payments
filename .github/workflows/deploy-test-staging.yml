@@ -73,7 +73,7 @@ jobs:
         run: |
           sam deploy --template-file .aws-sam/build/template.yml \
             --stack-name "OpenDevOpsSubmitImage" \
-            --s3-bucket "open-devops-code-us-west-1-${{secret.AWS_ACOUNT_ID}}" \
+            --s3-bucket "open-devops-code-us-west-1-${{secrets.AWS_ACOUNT_ID}}" \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
 
   integration-test-us-west-1:
