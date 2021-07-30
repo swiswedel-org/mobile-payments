@@ -5,6 +5,9 @@ on:
       - '*'
       - '!mainline'
 
+env:
+  aws_account_id: ${{secrets.AWS_ACCOUNT_ID}}
+
 jobs:
   run-unit-tests:
     runs-on: ubuntu-latest
