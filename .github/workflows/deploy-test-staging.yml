@@ -5,6 +5,9 @@ on:
       - '*'
       - '!mainline'
 
+env:
+  aws_account_id: ${{secrets.AWS_ACCOUNT_ID}}
+
 jobs:
   run-unit-tests:
     runs-on: ubuntu-latest
@@ -73,7 +76,7 @@ jobs:
         run: |
           sam deploy --template-file .aws-sam/build/template.yaml \
             --stack-name "OpenDevOpsSubmitImage" \
-            --s3-bucket "open-devops-code-us-west-1" \
+            --s3-bucket "open-devops-code-us-west-1-${aws_account_id}" \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
 
   integration-test-us-west-1:
@@ -151,7 +154,7 @@ jobs:
         run: |
           sam deploy --template-file .aws-sam/build/template.yaml \
             --stack-name "OpenDevOpsSubmitImage" \
-            --s3-bucket "open-devops-code-us-east-2" \
+            --s3-bucket "open-devops-code-us-east-2-${aws_account_id}" \
             --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
 
   integration-test-us-east-2:
