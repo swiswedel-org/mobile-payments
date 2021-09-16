@@ -33,6 +33,8 @@ func (d *Dependency) processRequest(imageUrl string, region string, aws_account_
 	}
 	defer response.Body.Close()
 
+  // I need to be removed
+
 	if response.StatusCode != 200 {
 		return "", errors.New(fmt.Sprintf("response.StatusCode %d != 200\n", response.StatusCode))
 	}
