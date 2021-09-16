@@ -65,7 +65,7 @@ jobs:
 
   deploy-us-east-1:
     runs-on: ubuntu-latest
-    needs: deploy-us-west-2
+    needs: integration-test-us-west-2
     outputs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
@@ -121,7 +121,7 @@ jobs:
 
   deploy-ca-central-1:
     runs-on: ubuntu-latest
-    needs: deploy-us-east-1
+    needs: integration-test-us-east-1
     outputs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
