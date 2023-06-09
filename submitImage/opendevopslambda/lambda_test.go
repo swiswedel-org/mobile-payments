@@ -47,11 +47,11 @@ func TestHandler(t *testing.T) {
 
 		ctx := context.Background()
 		lc := new(lambdacontext.LambdaContext)
-		lc.InvokedFunctionArn = "arn:aws:lambda:us-west-2:756685045356:function:OpenDevOpsSubmitImage-SubmitImageFunction"
+		lc.InvokedFunctionArn = "arn:aws:lambda:region:123456789000:function:functionName"
 		ctx = lambdacontext.NewContext(ctx, lc)
 
 		qsp := map[string]string{}
-		qsp["url"] = "https://i.ytimg.com/vi/iVZYAhzxG4Y/maxresdefault.jpg"
+		qsp["url"] = "https://cdn.britannica.com/05/30105-004-644BE36D.jpg"
 
 		request := events.APIGatewayProxyRequest{
 			QueryStringParameters: qsp,

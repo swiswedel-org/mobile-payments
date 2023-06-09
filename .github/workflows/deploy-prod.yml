@@ -14,13 +14,13 @@ jobs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: 1.16.x
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS credentials
         id: creds
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -45,19 +45,19 @@ jobs:
     needs: deploy-us-west-2
     steps:
       - name: Pull systemTests repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
         with:
           repository: PmmQuickStartGuides01/systemTests
           token: ${{ secrets.ACCESS_KEY }}
       - name: Configure AWS credentials
         id: creds
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "us-west-2"
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: 1.16.x
       - name: Run integration tests
@@ -70,13 +70,13 @@ jobs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: 1.16.x
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS credentials
         id: creds
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -101,19 +101,19 @@ jobs:
     needs: deploy-us-east-1
     steps:
       - name: Pull systemTests repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
         with:
           repository: PmmQuickStartGuides01/systemTests
           token: ${{ secrets.ACCESS_KEY }}
       - name: Configure AWS credentials
         id: creds
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "us-east-1"
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: 1.16.x
       - name: Run integration tests
@@ -126,13 +126,13 @@ jobs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: 1.16.x
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Configure AWS credentials
         id: creds
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -158,19 +158,19 @@ jobs:
     needs: deploy-ca-central-1
     steps:
       - name: Pull systemTests repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
         with:
           repository: PmmQuickStartGuides01/systemTests
           token: ${{ secrets.ACCESS_KEY }}
       - name: Configure AWS credentials
         id: creds
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "ca-central-1"
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: 1.16.x
       - name: Run integration tests
