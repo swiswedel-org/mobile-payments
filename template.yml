@@ -46,8 +46,3 @@ Outputs:
     Value: !Ref SubmitImageFunction
     Export:
       Name: SubmitImageFunctionName
-
-deployments:
-  services:
-    ids:
-    - b:YXJpOmNsb3VkOmdyYXBoOjpzZXJ2aWNlLzY5ZjIyOGYzLTFhZjUtNDMxZi1iMWUwLWFiNGZlNzI2MWRmMS82NWUzZGY5YS01YjlhLTExZWYtOWRlYS0xMjAxZjE2ZWQ0MWY=
