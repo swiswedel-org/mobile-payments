@@ -18,6 +18,7 @@ func init() {
 func main() {
 	sess := session.Must(session.NewSession())
 
+	
 	d := opendevopslambda.Dependency{
 		DepS3: s3.New(sess),
 		DepDynamoDB: dynamodb.New(sess),
