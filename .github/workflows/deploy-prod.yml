@@ -3,10 +3,21 @@ on:
   pull_request:
     branches:
       - mainline
-
+  push:
+    branches: 
+      - mainline
+      
+  # Allows to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+  schedule:
+    - cron:  '3 10,18,23 * * 1-4'
+    
 jobs:
   deploy-us-west-2:
     runs-on: ubuntu-latest
+    environment: prod-us-west
+    
     outputs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
@@ -31,6 +42,7 @@ jobs:
 
   integration-test-us-east-1:
     runs-on: ubuntu-latest
+    environment: prod-us-east
     needs: deploy-us-east-1
     steps:
       - name: Integration test us-east-1
@@ -38,6 +50,7 @@ jobs:
 
   deploy-ca-central-1:
     runs-on: ubuntu-latest
+    environment: prod-ca-central
     needs: integration-test-us-east-1
     outputs:
       env-name: ${{ steps.env-name.outputs.environment }}
