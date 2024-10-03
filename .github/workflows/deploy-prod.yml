@@ -21,7 +21,7 @@ jobs:
     outputs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
-    # Delay the execution
+    # Delay the execution - deployment tracking/gating requirement
       - name: Sleep for 60 seconds
         run: sleep 60s
       - name: Deploy us-west-2
@@ -40,6 +40,9 @@ jobs:
     outputs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
+      # Delay the execution - deployment tracking/gating requirement
+      - name: Sleep for 60 seconds
+        run: sleep 60s
       - name: Deploy us-east-1
         run: echo "Deploy us-east-1"
 
@@ -58,6 +61,9 @@ jobs:
     outputs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
+      # Delay the execution - deployment tracking/gating requirement
+      - name: Sleep for 60 seconds
+        run: sleep 60s
       - name: Deploy ca-central-1
         run: echo "Deploy ca-central-1"
 
