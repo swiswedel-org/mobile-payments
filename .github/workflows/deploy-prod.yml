@@ -21,6 +21,9 @@ jobs:
     outputs:
       env-name: ${{ steps.env-name.outputs.environment }}
     steps:
+    # Delay the execution
+      - name: Sleep for 60 seconds
+        run: sleep 60s
       - name: Deploy us-west-2
         run: echo "Deploy us-west-2"
 
