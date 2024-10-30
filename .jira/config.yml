@@ -4,7 +4,7 @@ deployments:
     retry: 50 # run poll action 50 times
     sleep: 30 # wait 30 seconds between each poll
     environments: # select the environments you'd like to use with this feature
-    - Production
+    - prod-us-west
   services:
     ids:
-    - b:YXJpOmNsb3VkOmdyYXBoOjpzZXJ2aWNlLzY5ZjIyOGYzLTFhZjUtNDMxZi1iMWUwLWFiNGZlNzI2MWRmMS82NWUzZGY5YS01YjlhLTExZWYtOWRlYS0xMjAxZjE2ZWQ0MWY=
+    - b:YXJpOmNsb3VkOmdyYXBoOjpzZXJ2aWNlLzY5ZjIyOGYzLTFhZjUtNDMxZi1iMWUwLWFiNGZlNzI2MWRmMS82OTkwYWY0Yy01YjlhLTExZWYtOWRlZC0xMjAxZjE2ZWQ0MWY=
