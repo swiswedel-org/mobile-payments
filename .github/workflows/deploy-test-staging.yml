@@ -1,8 +1,11 @@
 name: deploy-submit-image-test-staging
 on:
+  pull_request:
+    branches:
+      - mainline
   push:
     branches:
-      - '*'
+      - '**'
       - '!mainline'
 
   # Allows to run this workflow manually from the Actions tab
