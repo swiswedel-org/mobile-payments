@@ -17,6 +17,7 @@ jobs:
           method: POST
           headers: |
             "Content-Type: application/json"
+          body: '{"event": "deployment", "repository": "joelwmale/webhook-action"}'
           github_event_payload: true
 
 
