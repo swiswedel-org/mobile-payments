@@ -23,23 +23,10 @@ jobs:
         script: |
           const ISSUE_URL = "${{ github.event.issue.html_url }}"
           const jiraLabels = "${{ steps.filter_labels.outputs.jira_labels }}";
-          
-          const issueNumber = context.issue.number;
-          const { data: issue } = await github.rest.issues.get({
-            ...context.repo,
-            issue_number: issueNumber
-          });
-
-          const comments = await github.rest.issues.listComments({
-            ...context.repo,
-            issue_number: issueNumber
-          });
-          const latestComment = comments.data.pop();
-          return { latestComment };
-          
+                  
           const webhookUrl = "https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d";        
           
-          const payload = JSON.stringify({ issues: jiraLabels.split(","), GitHub_issue_url: ISSUE_URL, latest_comment: steps.get_data.outputs.latestComment.body });
+          const payload = JSON.stringify({ issues: jiraLabels.split(","), GitHub_issue_url: ISSUE_URL});
 
           const response = await fetch(webhookUrl, {
             method: 'POST',
