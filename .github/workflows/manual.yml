@@ -19,6 +19,6 @@ jobs:
       - name: Send Webhook
         if: steps.check_label.outputs.found == 'true'
         run: |
-          curl -X POST -H "Content-Type: application/json" \
-          -d '{"labels": $(jq -r '.issue.labels | map(.name) | join(",")' "$GITHUB_EVENT_PATH")}' \
+          curl -X POST -H "Content-type: application/json" \
+          -d '{"labels": ${{ toJson(github.event.issue.labels) }}}' \
           https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d
