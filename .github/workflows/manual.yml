@@ -21,4 +21,4 @@ jobs:
         run: |
           curl -X POST -H "Content-Type: application/json" \
           -d '{"labels": $(jq -r '.issue.labels | map(.name) | join(",")' "$GITHUB_EVENT_PATH")}' \
-          https://your-webhook-url.com
+          https://automation.atlassian.com/pro/hooks/eca60f7b58673f94b9f5a5e79d3df633b1c3286d
