@@ -16,7 +16,7 @@ jobs:
           url: https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d
           method: POST
           headers: |
-            Content-Type: application/json
+            "Content-Type: application/json"
           github_event_payload: true
 
 
