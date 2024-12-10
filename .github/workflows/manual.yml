@@ -30,8 +30,6 @@ jobs:
             },
             body: payload,
           });
-          echo labels
-          echo payload
           if (!response.ok) {
             throw new Error(`Webhook request failed: ${response.statusText}`);
           }
