@@ -9,17 +9,20 @@ jobs:
     if: contains(github.event.issue.labels.*.name, 'JSM')
     runs-on: ubuntu-latest
     steps:
-    - name: Extract Labels
-      id: extract_labels
+    - name: Extract and Filter Labels
+      id: filter_labels
       run: |
-        echo "::set-output name=labels::$(jq -r '.issue.labels | map(.name) | join(",")' $GITHUB_EVENT_PATH)"
+        labels=$(jq -r '.issue.labels | map(.name) | join(",")' $GITHUB_EVENT_PATH)
+        jira_labels=$(echo $labels | tr ',' '\n' | grep -E '^[A-Z]+-[0-9]+$' | tr '\n' ',' | sed 's/,$//')
+        echo "::set-output name=jira_labels::$jira_labels"
+        
     - name: Send Webhook
       uses: actions/github-script@v3
       with:
         script: |
           const labels = "${{ steps.extract_labels.outputs.labels }}";
           const webhookUrl = "https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d";
-          const payload = JSON.stringify({ labels: labels.split(",") });
+          const payload = JSON.stringify({ labels: [labels.split(",")] });
           const response = await fetch(webhookUrl, {
             method: 'POST',
             headers: {
