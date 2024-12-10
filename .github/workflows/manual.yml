@@ -9,15 +9,24 @@ jobs:
     if: contains(github.event.issue.labels.*.name, 'JSM')
     runs-on: ubuntu-latest
     steps:
-      - name: Webhook Action
-        uses: joelwmale/webhook-action@2.4.1
-          
-        with:
-          url: https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d
-          method: POST
-          headers: |
-            "Content-Type: application/json"
-          body: '{"event": "deployment", "repository": "joelwmale/webhook-action"}'
-          github_event_payload: true
-
-
+    - name: Extract Labels
+      id: extract_labels
+      run: |
+        echo "::set-output name=labels::$(jq -r '.issue.labels | map(.name) | join(",")' $GITHUB_EVENT_PATH)"
+    - name: Send Webhook
+      uses: actions/github-script@v3
+      with:
+        script: |
+          const labels = "${{ steps.extract_labels.outputs.labels }}";
+          const webhookUrl = "https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d";
+          const payload = JSON.stringify({ labels: labels.split(",") });
+          const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: payload,
+          });
+          if (!response.ok) {
+            throw new Error(`Webhook request failed: ${response.statusText}`);
+          }
