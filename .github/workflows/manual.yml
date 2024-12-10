@@ -23,7 +23,7 @@ jobs:
         script: |
           const jiraLabels = "${{ steps.filter_labels.outputs.jira_labels }}";
           const webhookUrl = "https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d";
-          const payload = JSON.stringify({ issues: jiraLabels.split(",") });
+          const payload = JSON.stringify({ issues: jiraLabels.split(","); GitHub_issue_url: $ISSUE_URL });
 
           const response = await fetch(webhookUrl, {
             method: 'POST',
