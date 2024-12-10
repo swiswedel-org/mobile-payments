@@ -21,7 +21,7 @@ jobs:
         script: |
           const labels = "${{ steps.extract_labels.outputs.labels }}";
           const webhookUrl = "https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d";
-          const payload = JSON.stringify({ labels2: labels.split(",")});
+          const payload = "labels2: labels.split(",")";
           const response = await fetch(webhookUrl, {
             method: 'POST',
             headers: {
