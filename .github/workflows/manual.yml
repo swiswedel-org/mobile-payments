@@ -9,19 +9,14 @@ jobs:
     if: contains(github.event.issue.labels.*.name, 'JSM')
     runs-on: ubuntu-latest
     steps:
-      - name: Send Webhook
-        uses: distribuida/webhook-action@v1.1.0
+      - name: Webhook Action
+        uses: joelwmale/webhook-action@2.4.1
+          
         with:
           url: https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d
           method: POST
           headers: |
             Content-Type: application/json
-          payload: |
-            {
-              "issue_title": "${{ github.event.issue.title }}",
-              "issue_number": ${{ github.event.issue.number }},
-              "issue_url": "${{ github.event.issue.html_url }}",
-              "repository_name": "${{ github.repository }}",
-              "closed_at": "${{ github.event.issue.closed_at }}",
-              "labels": ${{ toJson(github.event.issue.labels) }}
-            }
+          github_event_payload: true
+
+
