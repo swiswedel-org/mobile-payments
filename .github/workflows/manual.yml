@@ -7,7 +7,7 @@ on:
 jobs:
   send-webhook:
     if: contains(github.event.issue.labels.*.name, 'JSM')
-    runs-on: mobile-payments
+    runs-on: ubuntu-latest
     steps:
       - name: Send Webhook
         uses: distribuida/webhook-action@v1.1.0
