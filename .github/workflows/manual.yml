@@ -1,0 +1,27 @@
+name: JSM Issue Closed Webhook
+
+on:
+  issues:
+    types: [closed]
+
+jobs:
+  send-webhook:
+    if: contains(github.event.issue.labels.*.name, 'JSM')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Webhook
+        uses: distribuida/webhook-action@v1.1.0
+        with:
+          url: ${{ secrets.WEBHOOK_URL }}
+          method: POST
+          headers: |
+            Content-Type: application/json
+          payload: |
+            {
+              "issue_title": "${{ github.event.issue.title }}",
+              "issue_number": ${{ github.event.issue.number }},
+              "issue_url": "${{ github.event.issue.html_url }}",
+              "repository_name": "${{ github.repository }}",
+              "closed_at": "${{ github.event.issue.closed_at }}",
+              "labels": ${{ toJson(github.event.issue.labels) }}
+            }
