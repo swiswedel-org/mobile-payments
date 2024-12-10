@@ -1,24 +1,27 @@
-name: Issue Closed Webhook
+name: JSM Issue Closed Webhook
 
 on:
   issues:
     types: [closed]
 
 jobs:
-  send_webhook:
+  send-webhook:
+    if: contains(github.event.issue.labels.*.name, 'JSM')
     runs-on: ubuntu-latest
     steps:
-      - name: Check if issue has "JSM" label
-        id: check_label
-        run: |
-          if [[ "$(jq -r '.issue.labels[] | select(.name=="JSM") | .name' "$GITHUB_EVENT_PATH")" != "JSM" ]]; then
-            echo "Label 'JSM' not found. Exiting."
-            exit 0
-          fi
-
       - name: Send Webhook
-        if: steps.check_label.outputs.found == 'true'
-        run: |
-          curl -X POST -H "Content-type: application/json" \
-          -d '{"labels": ${{ toJson(github.event.issue.labels) }}}' \
-          https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d
+        uses: distribuida/webhook-action@v1.1.0
+        with:
+          url: https://automation.atlassian.com/pro/hooks/03ade4084726b3f19ec62b92170435d4fe80af9d
+          method: POST
+          headers: |
+            Content-Type: application/json
+          payload: |
+            {
+              "issue_title": "${{ github.event.issue.title }}",
+              "issue_number": ${{ github.event.issue.number }},
+              "issue_url": "${{ github.event.issue.html_url }}",
+              "repository_name": "${{ github.repository }}",
+              "closed_at": "${{ github.event.issue.closed_at }}",
+              "labels": ${{ toJson(github.event.issue.labels) }}
+            }
