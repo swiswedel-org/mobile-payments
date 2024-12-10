@@ -7,12 +7,12 @@ on:
 jobs:
   send-webhook:
     if: contains(github.event.issue.labels.*.name, 'JSM')
-    runs-on: ubuntu-latest
+    runs-on: mobile-payments
     steps:
       - name: Send Webhook
         uses: distribuida/webhook-action@v1.1.0
         with:
-          url: ${{ secrets.WEBHOOK_URL }}
+          url: https://automation.atlassian.com/pro/hooks/eca60f7b58673f94b9f5a5e79d3df633b1c3286d
           method: POST
           headers: |
             Content-Type: application/json
