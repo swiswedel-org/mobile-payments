@@ -1,27 +1,24 @@
-name: JSM Issue Closed Webhook
+name: Issue Closed Webhook
 
 on:
   issues:
     types: [closed]
 
 jobs:
-  send-webhook:
-    if: contains(github.event.issue.labels.*.name, 'JSM')
+  send_webhook:
     runs-on: ubuntu-latest
     steps:
+      - name: Check if issue has "JSM" label
+        id: check_label
+        run: |
+          if [[ "$(jq -r '.issue.labels[] | select(.name=="JSM") | .name' "$GITHUB_EVENT_PATH")" != "JSM" ]]; then
+            echo "Label 'JSM' not found. Exiting."
+            exit 0
+          fi
+
       - name: Send Webhook
-        uses: swiswedel-org/mobile-payments@v1.0
-        with:
-          url: https://automation.atlassian.com/pro/hooks/eca60f7b58673f94b9f5a5e79d3df633b1c3286d
-          method: POST
-          headers: |
-            Content-Type: application/json
-          payload: |
-            {
-              "issue_title": "${{ github.event.issue.title }}",
-              "issue_number": ${{ github.event.issue.number }},
-              "issue_url": "${{ github.event.issue.html_url }}",
-              "repository_name": "${{ github.repository }}",
-              "closed_at": "${{ github.event.issue.closed_at }}",
-              "labels": ${{ toJson(github.event.issue.labels) }}
-            }
+        if: steps.check_label.outputs.found == 'true'
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"labels": $(jq -r '.issue.labels | map(.name) | join(",")' "$GITHUB_EVENT_PATH")}' \
+          https://your-webhook-url.com
