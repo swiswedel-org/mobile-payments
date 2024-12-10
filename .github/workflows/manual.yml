@@ -13,7 +13,7 @@ jobs:
       id: filter_labels
       run: |
         labels=$(jq -r '.issue.labels | map(.name) | join(",")' $GITHUB_EVENT_PATH)
-        jira_labels=$(echo $labels | tr ',' '\n' | grep -E '^[A-Z]+-[0-9]+$' | tr '\n' ',' | sed 's/,$//')
+        jira_labels=$(echo $labels | tr ',' '\n' | grep -E '[A-Z][A-Z0-9]+-[0-9]+' | tr '\n' ',' | sed 's/,$//')
         echo "::set-output name=jira_labels::$jira_labels"
         
     - name: Send Webhook
