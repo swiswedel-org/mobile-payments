@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Webhook
+        uses: swiswedel-org/mobile-payments@v1.0
         with:
           url: https://automation.atlassian.com/pro/hooks/eca60f7b58673f94b9f5a5e79d3df633b1c3286d
           method: POST
